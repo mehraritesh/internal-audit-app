@@ -9,7 +9,7 @@ const AuditHistoryScreen = ({ navigation }) => {
   const [audits, setAudits] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load audits from AsyncStorage on mount
+
   useEffect(() => {
     const loadAudits = async () => {
       setLoading(true);
@@ -18,12 +18,10 @@ const AuditHistoryScreen = ({ navigation }) => {
       setLoading(false);
     };
     loadAudits();
-    // Listen to navigation focus to refresh audits
     const unsubscribe = navigation.addListener('focus', loadAudits);
     return unsubscribe;
   }, [navigation]);
 
-  // Delete audit and persist
   const handleDelete = (id) => {
     Alert.alert('Delete Audit', 'Are you sure you want to delete this audit?', [
       { text: 'Cancel', style: 'cancel' },
@@ -39,8 +37,6 @@ const AuditHistoryScreen = ({ navigation }) => {
       },
     ]);
   };
-
-  // Render each audit card
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <View style={styles.header}>
