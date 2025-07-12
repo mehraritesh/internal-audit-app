@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Alert, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StepOne from './AuditForm/StepOne';
 import StepTwo from './AuditForm/StepTwo';
@@ -77,8 +77,20 @@ const AuditFormScreen = ({ navigation }) => {
     }
   };
 
+  // Progress indicator
+  const renderProgress = () => (
+    <View style={styles.progressContainer}>
+      <View style={styles.progressBar}>
+        <View style={[styles.progressFill, { width: `${(step / 3) * 100}%` }]} />
+      </View>
+      <Text style={styles.progressText}>Step {step} of 3</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
+      {renderProgress()}
+      
       {step === 1 && <StepOne formData={formData} setFormData={setFormData} />}
       {step === 2 && <StepTwo formData={formData} setFormData={setFormData} />}
       {step === 3 && <StepThree formData={formData} setFormData={setFormData} />}
@@ -95,7 +107,14 @@ const AuditFormScreen = ({ navigation }) => {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity style={styles.buttonPrimary} onPress={handleSubmit} disabled={loading}>
-            <Text style={styles.buttonText}>{loading ? 'Submitting...' : 'Submit'}</Text>
+            {loading ? (
+              <View style={styles.loadingContainer}>
+                <ActivityIndicator size="small" color="#fff" />
+                <Text style={styles.buttonText}>Submitting...</Text>
+              </View>
+            ) : (
+              <Text style={styles.buttonText}>Submit</Text>
+            )}
           </TouchableOpacity>
         )}
       </View>
@@ -105,6 +124,27 @@ const AuditFormScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: '#f6f8fa' },
+  progressContainer: {
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  progressBar: {
+    width: '100%',
+    height: 8,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 4,
+    marginBottom: 8,
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#1976d2',
+    borderRadius: 4,
+  },
+  progressText: {
+    fontSize: 14,
+    color: '#666',
+    fontWeight: '500',
+  },
   buttonRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 30 },
   buttonPrimary: {
     backgroundColor: '#1976d2',
@@ -128,6 +168,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  loadingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 
