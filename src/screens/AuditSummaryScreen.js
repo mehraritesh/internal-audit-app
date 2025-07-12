@@ -1,8 +1,21 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 const AuditSummaryScreen = ({ route, navigation }) => {
   const { formData } = route.params;
+
+  // Render star rating
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <Text key={i} style={[styles.star, i <= rating && styles.starFilled]}>
+          {i <= rating ? '★' : '☆'}
+        </Text>
+      );
+    }
+    return stars;
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -10,7 +23,10 @@ const AuditSummaryScreen = ({ route, navigation }) => {
 
       <View style={styles.card}>
         <Text style={styles.label}>Rating:</Text>
-        <Text style={styles.value}>{formData.rating}</Text>
+        <View style={styles.ratingContainer}>
+          {renderStars(formData.rating)}
+          <Text style={styles.ratingText}>({formData.rating}/5)</Text>
+        </View>
 
         <Text style={styles.label}>Checklist:</Text>
         {formData.checks.map((item, index) => (
@@ -43,6 +59,24 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   label: { fontWeight: 'bold', marginTop: 10, color: '#1976d2' },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  star: {
+    fontSize: 20,
+    color: '#ddd',
+    marginRight: 2,
+  },
+  starFilled: {
+    color: '#ffd700',
+  },
+  ratingText: {
+    fontSize: 16,
+    color: '#666',
+    marginLeft: 8,
+  },
   value: { marginBottom: 5, fontSize: 16 },
   buttonPrimary: {
     backgroundColor: '#1976d2',

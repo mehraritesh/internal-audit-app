@@ -4,46 +4,77 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const StepOne = ({ formData, setFormData }) => {
   const setRating = (rating) => setFormData({ ...formData, rating });
 
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      const isSelected = formData.rating >= i;
+      stars.push(
+        <TouchableOpacity
+          key={i}
+          style={styles.starContainer}
+          onPress={() => setRating(i)}
+        >
+          <Text style={[styles.star, isSelected && styles.starSelected]}>
+            {isSelected ? '★' : '☆'}
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    return stars;
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Step 1: Rate the process</Text>
-      <View style={styles.ratingRow}>
-        {[1, 2, 3, 4, 5].map((num) => (
-          <TouchableOpacity
-            key={num}
-            style={[styles.ratingButton, formData.rating === num && styles.ratingButtonSelected]}
-            onPress={() => setRating(num)}
-          >
-            <Text style={[styles.ratingText, formData.rating === num && styles.ratingTextSelected]}>{num}</Text>
-          </TouchableOpacity>
-        ))}
+      <Text style={styles.subtitle}>Tap on a star to rate from 1 to 5</Text>
+      
+      <View style={styles.starsContainer}>
+        {renderStars()}
       </View>
+      
+      {formData.rating && (
+        <View style={styles.ratingDisplay}>
+          <Text style={styles.ratingText}>
+            You rated: {formData.rating} {formData.rating === 1 ? 'star' : 'stars'}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: { marginBottom: 20 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 18, color: '#1976d2' },
-  ratingRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 },
-  ratingButton: {
-    backgroundColor: '#e3eafc',
-    borderRadius: 24,
-    paddingVertical: 16,
-    paddingHorizontal: 22,
-    marginHorizontal: 6,
+  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 8, color: '#1976d2' },
+  subtitle: { fontSize: 16, color: '#666', marginBottom: 20 },
+  starsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 20,
   },
-  ratingButtonSelected: {
-    backgroundColor: '#1976d2',
+  starContainer: {
+    padding: 8,
+    marginHorizontal: 4,
+  },
+  star: {
+    fontSize: 40,
+    color: '#ddd',
+  },
+  starSelected: {
+    color: '#ffd700',
+  },
+  ratingDisplay: {
+    alignItems: 'center',
+    marginTop: 16,
+    padding: 12,
+    backgroundColor: '#e3f2fd',
+    borderRadius: 8,
   },
   ratingText: {
-    fontSize: 20,
+    fontSize: 16,
+    fontWeight: '600',
     color: '#1976d2',
-    fontWeight: 'bold',
-  },
-  ratingTextSelected: {
-    color: '#fff',
   },
 });
 

@@ -22,37 +22,25 @@ A professional-grade mobile app for internal auditing with advanced features. Si
 ```
 src/
 ├── assets/
-│   └── policy.html              # Policy document loaded in WebView
+│   └── policy.html             
 ├── context/
-│   └── RoleContext.js           # Role context and provider
+│   └── RoleContext.js          
 ├── navigation/
-│   └── AppNavigator.js          # Stack navigator for screens
+│   └── AppNavigator.js      
 ├── screens/
 │   ├── AuditForm/
-│   │   ├── StepOne.js           # Step 1: Rating (1-5 scale)
-│   │   ├── StepTwo.js           # Step 2: Checklist items
-│   │   └── StepThree.js         # Step 3: Comments
-│   ├── LoginScreen.js           # Role selection with modern UI
-│   ├── RoleHomeScreen.js        # Dashboard with statistics
-│   ├── AuditFormScreen.js       # Multi-step form with progress
-│   ├── AuditSummaryScreen.js    # Submission summary
-│   ├── AuditHistoryScreen.js    # Searchable audit list
-│   └── PolicyViewerScreen.js    # WebView for policy/manual
+│   │   ├── StepOne.js           
+│   │   ├── StepTwo.js           
+│   │   └── StepThree.js        
+│   ├── LoginScreen.js           
+│   ├── RoleHomeScreen.js        
+│   ├── AuditFormScreen.js       
+│   ├── AuditSummaryScreen.js    
+│   ├── AuditHistoryScreen.js    
+│   └── PolicyViewerScreen.js   
 ├── utils/
-│   └── roleUtils.js             # Role-checking helpers
+│   └── roleUtils.js          
 ```
-
----
-
-## 🧑‍💼 Roles & Access Control
-
-| Role     | Submit Audits | View History | Delete Audits | View Policy | Dashboard Stats |
-|----------|---------------|--------------|---------------|-------------|-----------------|
-| Admin    | ❌            | ✅           | ✅            | ✅          | ✅              |
-| Auditor  | ✅            | ✅           | ❌            | ✅          | ✅              |
-| Viewer   | ❌            | ✅           | ❌            | ✅          | ✅              |
-
----
 
 ## 🎯 Key Features Explained
 
@@ -86,12 +74,6 @@ src/
 
 ## 🛠 Setup & Usage
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/mehraritesh/internal-audit-app.git
-cd internal-audit-app
-```
-
 ### 2. Install Dependencies
 ```bash
 npm install
@@ -108,28 +90,6 @@ npm run ios
 # Run on Android emulator
 npm run android
 ```
-
----
-
-## 📱 User Experience Highlights
-
-### **Form Experience**
-- **Progress tracking** with visual indicators
-- **Validation feedback** preventing user errors
-- **Loading states** during submission
-- **Success confirmations** with navigation
-
-### **History Management**
-- **Instant search** across all audit data
-- **Smart sorting** by date
-- **Responsive design** for all screen sizes
-- **Professional card layouts** with shadows
-
-### **Dashboard Insights**
-- **Real-time statistics** loading
-- **Role-based information** display
-- **Quick action buttons** for common tasks
-- **Visual hierarchy** for better navigation
 
 ---
 
@@ -187,10 +147,4 @@ npm run android
 
 ---
 
-## 📄 License
-MIT License - Feel free to use and modify for your projects.
-
----
-
-**Built with ❤️ using React Native and Expo**
 

@@ -77,6 +77,19 @@ const AuditHistoryScreen = ({ navigation }) => {
     ]);
   };
 
+  // Render star rating
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <Text key={i} style={[styles.star, i <= rating && styles.starFilled]}>
+          {i <= rating ? '★' : '☆'}
+        </Text>
+      );
+    }
+    return stars;
+  };
+
   // Render each audit card
   const renderItem = ({ item }) => (
     <View style={styles.card}>
@@ -89,7 +102,10 @@ const AuditHistoryScreen = ({ navigation }) => {
         )}
       </View>
       <Text style={styles.label}>Rating:</Text>
-      <Text style={styles.value}>{item.rating}/5</Text>
+      <View style={styles.ratingContainer}>
+        {renderStars(item.rating)}
+        <Text style={styles.ratingText}>({item.rating}/5)</Text>
+      </View>
       <Text style={styles.label}>Checks:</Text>
       <Text style={styles.value}>{item.checks.join(', ')}</Text>
       <Text style={styles.label}>Comments:</Text>
@@ -198,6 +214,24 @@ const styles = StyleSheet.create({
   timestamp: { fontSize: 13, color: '#888' },
   deleteText: { color: 'red', fontSize: 20 },
   label: { fontWeight: 'bold', marginTop: 6, color: '#1976d2' },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  star: {
+    fontSize: 16,
+    color: '#ddd',
+    marginRight: 2,
+  },
+  starFilled: {
+    color: '#ffd700',
+  },
+  ratingText: {
+    fontSize: 14,
+    color: '#666',
+    marginLeft: 8,
+  },
   value: { marginBottom: 4, fontSize: 16 },
   buttonPrimary: {
     backgroundColor: '#1976d2',
